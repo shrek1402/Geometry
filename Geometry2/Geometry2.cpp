@@ -28,9 +28,9 @@ int main()
         sCoordinate;
 
     //////////////////////////////////////////////  INPUT DATA  ////////////////////////////////////////////////////
-    getline(cin,sStart);
+    getline(cin, sStart);
     {
-        size_t* s = new size_t(sStart.size());
+        //size_t* s = new size_t(sStart.size());
         int i = 0,
             j = 0;
 
@@ -58,7 +58,7 @@ int main()
 
         sCoordinate = sStart.substr(i + 1, j - i - 1);
 
-        cout << "#Скобочки: \t ОК! (А может и не ОК)." << endl;
+        cout << "#Скобочки: \t ОК!" << endl; //TODO
     }
     //////////////////////////////////////////////  LOGICK  ////////////////////////////////////////////////////
 
@@ -68,7 +68,7 @@ int main()
         }
 
         else if (sName == "circle") {
-            cout << "circle" << endl;
+            cout << "#Фигура:\t circle" << endl;
         }
 
         else if (sName == "poligone") {
@@ -107,11 +107,8 @@ int main()
         string coordinats;
 
     public:
-        Circle(string c, int _x, int _y, double r)
-            : coordinats(c)
-            , x(_x)
-            , y(_y)
-            , radius(r)
+        Circle(string s)
+            : coordinats(s)
         {
         }
 
@@ -127,40 +124,86 @@ int main()
 
         void setPoint() override
         {
-            string tmp1, tmp2;
-            pair<int, int> c;
+            string temp = "";
+            int i = 0;
+
+            while (coordinats.at(i) != ' ') {
+                temp += coordinats.at(i);
+                i++;
+            }
+            x = stoi(temp);
+            temp = "";
+
+            while (coordinats.at(i) != ',') {
+                temp += coordinats.at(i);
+                i++;
+            }
+            y = stoi(temp);
+            temp = "";
+
+            while (i < coordinats.size()) {
+                if (coordinats.at(i) != ' ' && coordinats.at(i) != ',') {
+                    temp += coordinats.at(i);
+                }
+                i++;
+            }
+            radius = stoi(temp);
+            temp = "";
+        }
+    };
+
+    class Poligone : public Figure {
+    private:
+        string coordinats;
+
+    public:
+        Poligone(string c)
+            : coordinats(c)
+        {
+        }
+
+        void setPoint() override
+        {
+            string tmp1 = "";
+            bool flag = 0;
+            pair<int, int> c; // сделать массив векторов
 
             for (size_t i = 0; i < coordinats.size(); i++) {
                 if (coordinats.at(i) == ' ') {
                     c.first = stoi(tmp1); //c[i].first =
                     tmp1 = "";
+                    //flag = 1;                                                     TODO
                 } else if (coordinats.at(i) == ',') {
-                    c.second = stoi(tmp1); //c[i].first =                          TODO
+                    c.second = stoi(tmp1); //c[i].second =                          TODO
                     tmp1 = "";
-					}
-                    else if (i == coordinats.size() - 1)
-                    {
-                        c.second = stoi(tmp1); //c[i].first =                          TODO
-                        tmp1 = "";
+                } else if (i == coordinats.size() - 1) {
+                    tmp1 += coordinats.at(i);
+                    c.second = stoi(tmp1); //c[i].second =                          TODO
+                    tmp1 = "";
                 } else {
                     tmp1 += coordinats.at(i); // 1234 123, 23 21, 11 34
                 }
             }
             cout << c.first << "  " << c.second << endl;
+            // сюда добавить пуш в вектор координат
         }
     };
 
-    //////////////////////////////////////////////  MAI  ////////////////////////////////////////////////////
+    //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
 
-    int x = 2, y = 2;
-    double R = 1;
-    Circle circle(sCoordinate, x, y, R);
+    Circle circle(sCoordinate);
+    /*
+    cout << circle.getPerimetr()
+         << endl;
+
+    cout << circle.getSquare()
+         << endl;
+	*/
+    circle.setPoint();
 
     cout << circle.getPerimetr()
          << endl;
 
     cout << circle.getSquare()
          << endl;
-
-    circle.setPoint();
 }
