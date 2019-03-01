@@ -18,19 +18,13 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    /*struct node {
-        string nFigure;
-        vector<int> A;
-    }; */
-
     string sStart,
         sName,
         sCoordinate;
 
     //////////////////////////////////////////////  INPUT DATA  ////////////////////////////////////////////////////
-    getline(cin, sStart);
+   getline(cin, sStart);
     {
-        //size_t* s = new size_t(sStart.size());
         int i = 0,
             j = 0;
 
@@ -162,43 +156,51 @@ int main()
         {
         }
 
+		double getSquare() override
+        {
+            return 0;
+        }
+
+        double getPerimetr() override
+        {
+            return 0;
+        }
+
         void setPoint() override
         {
             string tmp1 = "";
             bool flag = 0;
-            pair<int, int> c; // сделать массив векторов
-
-            for (size_t i = 0; i < coordinats.size(); i++) {
+            typedef pair<int, int> c; // сделать массив векторов
+            vector<pair<int, int>> C;
+            for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
                 if (coordinats.at(i) == ' ') {
-                    c.first = stoi(tmp1); //c[i].first =
+                    C[j].first = stoi(tmp1);
                     tmp1 = "";
+                    j++;
                     //flag = 1;                                                     TODO
                 } else if (coordinats.at(i) == ',') {
-                    c.second = stoi(tmp1); //c[i].second =                          TODO
+                    C[j].second = stoi(tmp1);
                     tmp1 = "";
+                    j++;
                 } else if (i == coordinats.size() - 1) {
                     tmp1 += coordinats.at(i);
-                    c.second = stoi(tmp1); //c[i].second =                          TODO
-                    tmp1 = "";
+                    C[j].second = stoi(tmp1);
+                    j++;
                 } else {
-                    tmp1 += coordinats.at(i); // 1234 123, 23 21, 11 34
+                    tmp1 += coordinats.at(i);
                 }
+                // сделать проверку <0, int>
             }
-            cout << c.first << "  " << c.second << endl;
-            // сюда добавить пуш в вектор координат
+            for (size_t i = 0; i < C.size() - 1; i++) {
+                cout << C.at(i).first << " " << C.at(i).second << endl;
+            }
         }
     };
 
     //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
 
     Circle circle(sCoordinate);
-    /*
-    cout << circle.getPerimetr()
-         << endl;
 
-    cout << circle.getSquare()
-         << endl;
-	*/
     circle.setPoint();
 
     cout << circle.getPerimetr()
@@ -206,4 +208,8 @@ int main()
 
     cout << circle.getSquare()
          << endl;
+
+    Poligone poligone(sCoordinate);
+
+	poligone.setPoint();
 }
