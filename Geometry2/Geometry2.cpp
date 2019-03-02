@@ -23,7 +23,7 @@ int main()
         sCoordinate;
 
     //////////////////////////////////////////////  INPUT DATA  ////////////////////////////////////////////////////
-   getline(cin, sStart);
+    getline(cin, sStart);
     {
         int i = 0,
             j = 0;
@@ -151,47 +151,136 @@ int main()
         string coordinats;
 
     public:
+        vector<pair<int, int>> C;
         Poligone(string c)
             : coordinats(c)
         {
         }
 
-		double getSquare() override
+        double getSquare() override
         {
             return 0;
         }
 
         double getPerimetr() override
         {
-            return 0;
+            double result = 0;
+            for (size_t i = 0; i < C.size(); i++) {
+                if (i < C.size() - 1) {
+                    result += sqrt((C.at(i + 1).first - C.at(i).first) * (C.at(i + 1).first - C.at(i).first) //sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+                        + (C.at(i + 1).second - C.at(i).second) * (C.at(i + 1).second - C.at(i).second));
+                } else if (i = C.size() -1) {
+                    result += sqrt((C.at(0).first - C.at(i).first) * (C.at(0).first - C.at(i).first) //sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+                        + (C.at(0).second - C.at(i).second) * (C.at(0).second - C.at(i).second));
+                }
+            }
+            return result;
         }
 
         void setPoint() override
         {
-            string tmp1 = "";
-            bool flag = 0;
-            typedef pair<int, int> c; // сделать массив векторов
-            vector<pair<int, int>> C;
+            string tmp1 = "", tmp2 = "";
+            bool flag = true;
+
             for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
-                if (coordinats.at(i) == ' ') {
-                    C[j].first = stoi(tmp1);
-                    tmp1 = "";
-                    j++;
-                    //flag = 1;                                                     TODO
+                pair<int, int> tmpPair;
+
+                if (coordinats.at(i) == ' ' && coordinats.at(i - 1) != ',') { // poligone(1 2, 3 4, 5 6, 7 8, 9 0)
+                    flag = false;
+
                 } else if (coordinats.at(i) == ',') {
-                    C[j].second = stoi(tmp1);
+                    tmpPair.first = stoi(tmp1);
+                    tmpPair.second = stoi(tmp2);
+                    C.push_back(tmpPair);
                     tmp1 = "";
-                    j++;
+                    tmp2 = "";
+                    flag = true;
+
                 } else if (i == coordinats.size() - 1) {
-                    tmp1 += coordinats.at(i);
-                    C[j].second = stoi(tmp1);
-                    j++;
-                } else {
-                    tmp1 += coordinats.at(i);
+                    tmp2 += coordinats.at(i);
+                    tmpPair.first = stoi(tmp1);
+                    tmpPair.second = stoi(tmp2);
+                    C.push_back(tmpPair);
+
+                } else if (coordinats.at(i) != ',') {
+                    if (flag)
+                        tmp1 += coordinats.at(i);
+                    else
+                        tmp2 += coordinats.at(i);
                 }
                 // сделать проверку <0, int>
             }
-            for (size_t i = 0; i < C.size() - 1; i++) {
+            for (size_t i = 0; i < C.size(); i++) {
+                cout << C.at(i).first << " " << C.at(i).second << endl;
+            }
+        }
+    };
+
+    class Trinagle : public Figure {
+    private:
+        string coordinats;
+
+    public:
+        vector<pair<int, int>> C;
+        Trinagle(string c)
+            : coordinats(c)
+        {
+        }
+
+        double getSquare() override
+        {
+            return abs(((C.at(1).first - C.at(0).first) * (C.at(2).second - C.at(0).second)
+                           - (C.at(2).first - C.at(0).first) * (C.at(1).second - C.at(0).second))
+                / 2.0);
+        }
+
+        double getPerimetr() override
+        {
+            return sqrt((C.at(1).first - C.at(0).first) * (C.at(1).first - C.at(0).first) //sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+                       + (C.at(1).second - C.at(0).second) * (C.at(1).second - C.at(0).second)) // +
+                + sqrt((C.at(2).first - C.at(0).first) * (C.at(2).first - C.at(0).first) //sqrt((x3-x1)*(x3-x1)+(y3-y1)*(y3-y1))
+                      + (C.at(2).second - C.at(0).second) * (C.at(2).second - C.at(0).second)) // +
+                + sqrt((C.at(2).first - C.at(1).first) * (C.at(2).first - C.at(1).first) //sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2))
+                      + (C.at(2).second - C.at(1).second) * (C.at(2).second - C.at(1).second));
+            //Прости меня, Бог рандома, за такой код =(
+        }
+
+        void setPoint() override
+        {
+            string tmp1 = "", tmp2 = "";
+            bool flag = true;
+            //typedef pair<int, int> c; // сделать массив векторов
+            //vector<pair<int, int>> C;
+
+            for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
+                pair<int, int> tmpPair;
+
+                if (coordinats.at(i) == ' ' && coordinats.at(i - 1) != ',') { // poligone(1 2, 3 4, 5 6, 7 8, 9 0)
+                    flag = false;
+
+                } else if (coordinats.at(i) == ',') {
+                    tmpPair.first = stoi(tmp1);
+                    tmpPair.second = stoi(tmp2);
+                    C.push_back(tmpPair);
+                    tmp1 = "";
+                    tmp2 = "";
+                    flag = true;
+
+                } else if (i == coordinats.size() - 1) {
+                    tmp2 += coordinats.at(i);
+                    tmpPair.first = stoi(tmp1);
+                    tmpPair.second = stoi(tmp2);
+                    C.push_back(tmpPair);
+
+                } else if (coordinats.at(i) != ',') {
+                    if (flag)
+                        tmp1 += coordinats.at(i);
+                    else
+                        tmp2 += coordinats.at(i);
+                }
+                // сделать проверку <0, int>
+            }
+            for (size_t i = 0; i < C.size(); i++) {
                 cout << C.at(i).first << " " << C.at(i).second << endl;
             }
         }
@@ -209,7 +298,13 @@ int main()
     cout << circle.getSquare()
          << endl;
 
-    Poligone poligone(sCoordinate);
+      Poligone poligone(sCoordinate);
 
-	poligone.setPoint();
+        poligone.setPoint();
+
+    //Trinagle trinagle(sCoordinate);
+
+    //trinagle.setPoint();
+    //cout << trinagle.getSquare() << endl;
+    cout << poligone.getPerimetr() << endl;
 }
