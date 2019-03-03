@@ -55,27 +55,6 @@ int main()
         cout << "#Скобочки: \t ОК!" << endl; //TODO
     }
     //////////////////////////////////////////////  LOGICK  ////////////////////////////////////////////////////
-
-    {
-        if (sName == "trinagle") {
-            cout << "trinagle" << endl;
-        }
-
-        else if (sName == "circle") {
-            cout << "#Фигура:\t circle" << endl;
-        }
-
-        else if (sName == "poligone") {
-            cout << "poligone" << endl;
-        }
-
-        else {
-            cout << "ERROR" << endl;
-            exit(404);
-        }
-    }
-
-    //////////////////////////////////////////////  CLASSES  ////////////////////////////////////////////////////
     class Figure {
     public:
         //Figure();
@@ -159,7 +138,15 @@ int main()
 
         double getSquare() override
         {
-            return 0;
+            double result = 0;
+            for (size_t i = 0; i < C.size(); i++) {
+                if (i < C.size() - 1) {
+                    result += C.at(i).first * C.at(i + 1).second - C.at(i + 1).first * C.at(i).second; //x1y2 - x2y1  01 10 12 21 23 32
+                } else {
+                    result += C.at(i).first * C.at(0).second - C.at(0).first * C.at(i).second;
+                }
+            }
+            return abs(result / 2.0);
         }
 
         double getPerimetr() override
@@ -167,10 +154,10 @@ int main()
             double result = 0;
             for (size_t i = 0; i < C.size(); i++) {
                 if (i < C.size() - 1) {
-                    result += sqrt((C.at(i + 1).first - C.at(i).first) * (C.at(i + 1).first - C.at(i).first) //sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+                    result += sqrt((C.at(i + 1).first - C.at(i).first) * (C.at(i + 1).first - C.at(i).first)
                         + (C.at(i + 1).second - C.at(i).second) * (C.at(i + 1).second - C.at(i).second));
-                } else if (i = C.size() -1) {
-                    result += sqrt((C.at(0).first - C.at(i).first) * (C.at(0).first - C.at(i).first) //sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+                } else if (i = C.size() - 1) {
+                    result += sqrt((C.at(0).first - C.at(i).first) * (C.at(0).first - C.at(i).first)
                         + (C.at(0).second - C.at(i).second) * (C.at(0).second - C.at(i).second));
                 }
             }
@@ -286,6 +273,33 @@ int main()
         }
     };
 
+
+
+    {
+		
+
+
+
+        if (sName == "trinagle") {
+            
+        }
+
+        else if (sName == "circle") {
+            cout << "#Фигура:\t circle" << endl;
+        }
+
+        else if (sName == "poligone") {
+            cout << "poligone" << endl;
+        }
+
+        else {
+            cout << "ERROR" << endl;
+            exit(404);
+        }
+    }
+
+    //////////////////////////////////////////////  CLASSES  ////////////////////////////////////////////////////
+   
     //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
 
     Circle circle(sCoordinate);
@@ -298,13 +312,18 @@ int main()
     cout << circle.getSquare()
          << endl;
 
-      Poligone poligone(sCoordinate);
+    Poligone poligone(sCoordinate);
 
-        poligone.setPoint();
+    poligone.setPoint();
 
     //Trinagle trinagle(sCoordinate);
 
     //trinagle.setPoint();
     //cout << trinagle.getSquare() << endl;
-    cout << poligone.getPerimetr() << endl;
+    cout << poligone.getSquare() << endl;
+
+
+
+
+
 }
