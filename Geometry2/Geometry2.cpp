@@ -71,7 +71,6 @@ int main()
    {
    }
    */
-    //                                                         TODO
 
     class Circle : public Figure {
     private:
@@ -272,36 +271,7 @@ int main()
             }
         }
     };
-
-
-
-    {
-		
-
-
-
-        if (sName == "trinagle") {
-            
-        }
-
-        else if (sName == "circle") {
-            cout << "#Фигура:\t circle" << endl;
-        }
-
-        else if (sName == "poligone") {
-            cout << "poligone" << endl;
-        }
-
-        else {
-            cout << "ERROR" << endl;
-            exit(404);
-        }
-    }
-
-    //////////////////////////////////////////////  CLASSES  ////////////////////////////////////////////////////
-   
-    //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
-
+    /*
     Circle circle(sCoordinate);
 
     circle.setPoint();
@@ -321,9 +291,37 @@ int main()
     //trinagle.setPoint();
     //cout << trinagle.getSquare() << endl;
     cout << poligone.getSquare() << endl;
+	*/
+    {
+        vector<unique_ptr<Figure>> figurki;
 
+        if (sName == "trinagle") {
+            figurki.push_back(make_unique<Trinagle>(sCoordinate));
+            cout << "#Фигура:\t OK!" << endl;
+        }
 
+        else if (sName == "circle") {
+            figurki.push_back(make_unique<Circle>(sCoordinate));
+            cout << "#Фигура:\t OK!" << endl;
+        }
 
+        else if (sName == "poligone") {
+            figurki.push_back(make_unique<Poligone>(sCoordinate));
+            cout << "#Фигура:\t OK!" << endl;
+        }
 
+        else {
+            cout << "ERROR" << endl;
+            exit(404);
+        }
 
+        for (auto&& function : figurki) {
+            function->setPoint();
+            cout << function->getPerimetr() << endl;
+        }
+    }
+
+    //////////////////////////////////////////////  CLASSES  ////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
 }
