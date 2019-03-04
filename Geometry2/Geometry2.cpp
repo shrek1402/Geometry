@@ -1,6 +1,4 @@
-﻿// Geometry2.cpp : Этот файл содержит функцию "main".
-
-#include "pch.h"
+﻿#include "pch.h"
 
 #define _USE_MATH_DEFINES
 
@@ -11,50 +9,17 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <typeinfo>
 
 using namespace std;
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
+    string sStart = "",
+           sName,
+           sCoordinate;
 
-    string sStart,
-        sName,
-        sCoordinate;
-
-    //////////////////////////////////////////////  INPUT DATA  ////////////////////////////////////////////////////
-    getline(cin, sStart);
-    {
-        int i = 0,
-            j = 0;
-
-        while (sStart.at(i) != '(' && i < sStart.size() - 1) {
-            i++;
-        }
-
-        if (i >= sStart.size()) {
-            cout << "ERROR 1" << endl;
-            exit(123);
-        }
-
-        sName = sStart.substr(0, i);
-
-        j = i - 1;
-
-        while (sStart.at(j) != ')' && j <= sStart.size() - 1) {
-            j++;
-        }
-
-        if (sStart.at(sStart.size() - 1) != ')') {
-            cout << sStart.at(sStart.size() - 1) << "ERROR 2" << endl;
-            exit(123);
-        }
-
-        sCoordinate = sStart.substr(i + 1, j - i - 1);
-
-        cout << "#Скобочки: \t ОК!" << endl; //TODO
-    }
-    //////////////////////////////////////////////  LOGICK  ////////////////////////////////////////////////////
     class Figure {
     public:
         //Figure();
@@ -112,18 +77,18 @@ int main()
             }
             y = stoi(temp);
             temp = "";
+            i++;
 
             while (i < coordinats.size()) {
-                if (coordinats.at(i) != ' ' && coordinats.at(i) != ',') {
-                    temp += coordinats.at(i);
-                }
+                // if (coordinats.at(i) != ' ' && coordinats.at(i) != ',') { // (3 2, 1,5)
+                temp += coordinats.at(i);
+                //}
                 i++;
             }
-            radius = stoi(temp);
+            radius = stod(temp);
             temp = "";
         }
     };
-
     class Poligone : public Figure {
     private:
         string coordinats;
@@ -196,12 +161,8 @@ int main()
                 }
                 // сделать проверку <0, int>
             }
-            for (size_t i = 0; i < C.size(); i++) {
-                cout << C.at(i).first << " " << C.at(i).second << endl;
-            }
         }
     };
-
     class Trinagle : public Figure {
     private:
         string coordinats;
@@ -235,7 +196,6 @@ int main()
         {
             string tmp1 = "", tmp2 = "";
             bool flag = true;
-            //typedef pair<int, int> c; // сделать массив векторов
             //vector<pair<int, int>> C;
 
             for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
@@ -266,62 +226,72 @@ int main()
                 }
                 // сделать проверку <0, int>
             }
-            for (size_t i = 0; i < C.size(); i++) {
-                cout << C.at(i).first << " " << C.at(i).second << endl;
-            }
         }
     };
-    /*
-    Circle circle(sCoordinate);
 
-    circle.setPoint();
+    vector<unique_ptr<Figure>> figurki;
+    while (sStart != "0") {
+        getline(cin, sStart);
 
-    cout << circle.getPerimetr()
-         << endl;
+        int i = 0,
+            j = 0;
+        if (sStart != "0") {
+            while (sStart.at(i) != '(' && i < sStart.size() - 1) {
+                i++;
+            }
 
-    cout << circle.getSquare()
-         << endl;
+            if (i >= sStart.size()) {
+                cout << "ERROR 1" << endl;
+                exit(123);
+            }
 
-    Poligone poligone(sCoordinate);
+            sName = sStart.substr(0, i);
 
-    poligone.setPoint();
+            j = i - 1;
 
-    //Trinagle trinagle(sCoordinate);
+            while (sStart.at(j) != ')' && j <= sStart.size() - 1) {
+                j++;
+            }
 
-    //trinagle.setPoint();
-    //cout << trinagle.getSquare() << endl;
-    cout << poligone.getSquare() << endl;
-	*/
-    {
-        vector<unique_ptr<Figure>> figurki;
+            if (sStart.at(sStart.size() - 1) != ')') {
+                cout << sStart.at(sStart.size() - 1) << "ERROR 2" << endl;
+                exit(123);
+            }
 
+            sCoordinate = sStart.substr(i + 1, j - i - 1);
+
+            cout << "#Скобочки: \t ОК!" << endl; //TODO
+        }
         if (sName == "trinagle") {
             figurki.push_back(make_unique<Trinagle>(sCoordinate));
-            cout << "#Фигура:\t OK!" << endl;
+            cout << ">Фигура:\t OK!" << endl;
         }
 
         else if (sName == "circle") {
             figurki.push_back(make_unique<Circle>(sCoordinate));
-            cout << "#Фигура:\t OK!" << endl;
+            cout << ">Фигура:\t OK!" << endl;
         }
 
         else if (sName == "poligone") {
             figurki.push_back(make_unique<Poligone>(sCoordinate));
-            cout << "#Фигура:\t OK!" << endl;
+            cout << ">Фигура:\t OK!" << endl;
         }
-
-        else {
-            cout << "ERROR" << endl;
-            exit(404);
-        }
-
-        for (auto&& function : figurki) {
-            function->setPoint();
-            cout << function->getPerimetr() << endl;
-        }
+        sName = "";
     }
+    /* else {
+                cout << "ERROR" << endl;
+                exit(404);
+            } */
 
-    //////////////////////////////////////////////  CLASSES  ////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////  MAIN  ////////////////////////////////////////////////////
+    for (auto&& function : figurki) {
+       /* for (auto&& i : function) { // как эту строчку правильно записать??
+            if (figurki[function]) {
+            }
+        }*/
+	
+        function->setPoint();
+        cout << "P = " << function->getPerimetr() << endl;
+        cout << "S = " << function->getSquare() << endl;
+        cout << "Name " << typeid(function).name() << endl;
+    }
 }
