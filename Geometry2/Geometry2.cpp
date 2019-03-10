@@ -7,15 +7,16 @@
 #include <map>
 #include <math.h>
 #include <string>
+#include <typeinfo>
 #include <utility>
 #include <vector>
-#include <typeinfo>
 
 using namespace std;
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
+
     string sStart = "",
            sName,
            sCoordinate;
@@ -24,9 +25,16 @@ int main()
     public:
         //Figure();
         //~Figure();
+        virtual string getFullName() = 0;
+        virtual string getName() = 0;
         virtual double getSquare() = 0;
         virtual double getPerimetr() = 0;
         virtual void setPoint() = 0;
+        virtual bool getError() = 0;
+
+        virtual vector<pair<int, int>> getVec() = 0;
+        virtual pair<double, pair<int, int>> getVec1() = 0;
+        //virtual pair<int, pair<int,double>> getVec() = 0;
     };
     /*Figure::Figure()
    {
@@ -42,11 +50,44 @@ int main()
         int x, y;
         double radius;
         string coordinats;
+        string fullName;
+        bool error = true;
 
     public:
-        Circle(string s)
+        Circle(string s, string n)
             : coordinats(s)
+            , fullName(n)
         {
+        }
+
+        bool getError() override
+        {
+            return error;
+        }
+
+        string getFullName() override
+        {
+            return fullName;
+        }
+
+        pair<double, pair<int, int>> getVec1() override
+        {
+            pair<double, pair<int, int>> C;
+            C.first = radius;
+            C.second.first = x;
+            C.second.second = y;
+            return C;
+        }
+
+        vector<pair<int, int>> getVec() override
+        {
+            vector<pair<int, int>> C;
+            return C;
+        }
+
+        string getName() override
+        {
+            return "Circle.";
         }
 
         double getSquare() override
@@ -62,42 +103,92 @@ int main()
         void setPoint() override
         {
             string temp = "";
-            int i = 0;
+            int i = 0, j=0;
 
-            while (coordinats.at(i) != ' ') {
-                temp += coordinats.at(i);
-                i++;
-            }
-            x = stoi(temp);
-            temp = "";
+            for (i = 0, j = 0; i < coordinats.size(); i++) {
 
-            while (coordinats.at(i) != ',') {
-                temp += coordinats.at(i);
-                i++;
-            }
-            y = stoi(temp);
-            temp = "";
-            i++;
+                if (coordinats.at(i) != ' ' && j == 0) {
+                    temp += coordinats.at(i);
+                } else if (coordinats.at(i) == ' ' && j == 0) {
+                    
+                    if (temp == "") {
+                        cout << "> Координаты: \t ERROR!" << endl;
+                        exit(505);
+                    }
+                    x = stoi(temp);
+                    temp = "";
+                    j++;
+                }
 
-            while (i < coordinats.size()) {
-                // if (coordinats.at(i) != ' ' && coordinats.at(i) != ',') { // (3 2, 1,5)
-                temp += coordinats.at(i);
-                //}
-                i++;
+                if (coordinats.at(i) != ',' && j == 1) {
+                    temp += coordinats.at(i);
+                } else if (coordinats.at(i) == ',' && j == 1) {
+                    if (temp == "") {
+                        cout << "> Координаты: \t ERROR!" << endl;
+                        exit(505);
+                    }
+                    y = stoi(temp);
+                    temp = "";
+                    j++;
+                    i+=2;
+                }
+
+                if (j == 2) {
+                    temp += coordinats.at(i);
+                    radius = stod(temp);
+                }
+
+                if (j != 2 && i == coordinats.size()-1){
+                        cout << "> Координаты: \t ERROR!" << endl;
+                        exit(505);
+                    }
             }
-            radius = stod(temp);
-            temp = "";
+            if (j != 2) {
+                cout << "> Координаты: \t ERROR!" << endl;
+                exit(505);
+            }
+            cout << "> Координаты: \t OK!" << endl;
         }
     };
+
     class Poligone : public Figure {
     private:
         string coordinats;
+        string fullName;
+        bool error = true;
 
     public:
         vector<pair<int, int>> C;
-        Poligone(string c)
+        Poligone(string c, string n)
             : coordinats(c)
+            , fullName(n)
         {
+        }
+
+        bool getError() override
+        {
+            return error;
+        }
+
+        string getFullName() override
+        {
+            return fullName;
+        }
+
+        pair<double, pair<int, int>> getVec1() override
+        {
+            pair<double, pair<int, int>> C;
+            return C;
+        }
+
+        vector<pair<int, int>> getVec() override
+        {
+            return C;
+        }
+
+        string getName() override
+        {
+            return "Poligone.";
         }
 
         double getSquare() override
@@ -140,6 +231,10 @@ int main()
                     flag = false;
 
                 } else if (coordinats.at(i) == ',') {
+                    if (tmp1 == "" || tmp2 == "") {
+                        cout << "> Координаты: \t ERROR!" << endl;
+                        exit(505);
+                    }
                     tmpPair.first = stoi(tmp1);
                     tmpPair.second = stoi(tmp2);
                     C.push_back(tmpPair);
@@ -148,6 +243,10 @@ int main()
                     flag = true;
 
                 } else if (i == coordinats.size() - 1) {
+                    if (tmp1 == "") {
+                        cout << "> Координаты: \t ERROR!" << endl;
+                        exit(505);
+                    }
                     tmp2 += coordinats.at(i);
                     tmpPair.first = stoi(tmp1);
                     tmpPair.second = stoi(tmp2);
@@ -161,17 +260,52 @@ int main()
                 }
                 // сделать проверку <0, int>
             }
+            if (coordinats.size() == 0) {
+                cout << "> Координаты: \t ERROR!" << endl;
+                exit(505);
+            } else
+                cout << "> Координаты: \t OK!" << endl;
         }
     };
+
     class Trinagle : public Figure {
     private:
         string coordinats;
+        string fullName;
+        bool error = true;
 
     public:
         vector<pair<int, int>> C;
-        Trinagle(string c)
+        Trinagle(string c, string n)
             : coordinats(c)
+            , fullName(n)
         {
+        }
+
+        bool getError() override
+        {
+            return error;
+        }
+
+        string getFullName() override
+        {
+            return fullName;
+        }
+
+        pair<double, pair<int, int>> getVec1() override
+        {
+            pair<double, pair<int, int>> C;
+            return C;
+        }
+
+        vector<pair<int, int>> getVec() override
+        {
+            return C;
+        }
+
+        string getName() override
+        {
+            return "Trinagle.";
         }
 
         double getSquare() override
@@ -196,7 +330,6 @@ int main()
         {
             string tmp1 = "", tmp2 = "";
             bool flag = true;
-            //vector<pair<int, int>> C;
 
             for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
                 pair<int, int> tmpPair;
@@ -205,6 +338,7 @@ int main()
                     flag = false;
 
                 } else if (coordinats.at(i) == ',') {
+
                     tmpPair.first = stoi(tmp1);
                     tmpPair.second = stoi(tmp2);
                     C.push_back(tmpPair);
@@ -213,6 +347,7 @@ int main()
                     flag = true;
 
                 } else if (i == coordinats.size() - 1) {
+
                     tmp2 += coordinats.at(i);
                     tmpPair.first = stoi(tmp1);
                     tmpPair.second = stoi(tmp2);
@@ -226,10 +361,18 @@ int main()
                 }
                 // сделать проверку <0, int>
             }
+            if (C.size() == 3)
+                cout << "> Координаты: \t OK!" << endl;
+            else {
+                cout << "> Координаты: \t ERROR!" << endl;
+                exit(505);
+            }
         }
     };
 
     vector<unique_ptr<Figure>> figurki;
+
+    //Считывает данные
     while (sStart != "0") {
         getline(cin, sStart);
 
@@ -241,7 +384,7 @@ int main()
             }
 
             if (i >= sStart.size()) {
-                cout << "ERROR 1" << endl;
+                cout << "> Скобочки: \t ERROR!" << endl;
                 exit(123);
             }
 
@@ -254,44 +397,195 @@ int main()
             }
 
             if (sStart.at(sStart.size() - 1) != ')') {
-                cout << sStart.at(sStart.size() - 1) << "ERROR 2" << endl;
+                cout << "> Скобочки: \t ERROR!" << endl;
                 exit(123);
             }
 
             sCoordinate = sStart.substr(i + 1, j - i - 1);
 
-            cout << "#Скобочки: \t ОК!" << endl; //TODO
+            cout << "> Скобочки: \t ОК!" << endl; //TODO
         }
         if (sName == "trinagle") {
-            figurki.push_back(make_unique<Trinagle>(sCoordinate));
-            cout << ">Фигура:\t OK!" << endl;
+            figurki.push_back(make_unique<Trinagle>(sCoordinate, sStart));
+            figurki[figurki.size() - 1]->setPoint();
+            cout << "> Фигура:\t OK!"  << endl;
         }
 
         else if (sName == "circle") {
-            figurki.push_back(make_unique<Circle>(sCoordinate));
-            cout << ">Фигура:\t OK!" << endl;
+            figurki.push_back(make_unique<Circle>(sCoordinate, sStart));
+            figurki[figurki.size() - 1]->setPoint();
+            cout << "> Фигура:\t OK!" << endl;
         }
 
         else if (sName == "poligone") {
-            figurki.push_back(make_unique<Poligone>(sCoordinate));
-            cout << ">Фигура:\t OK!" << endl;
+            figurki.push_back(make_unique<Poligone>(sCoordinate, sStart));
+            figurki[figurki.size() - 1]->setPoint();
+            cout << "> Фигура:\t OK!" << endl;
         }
         sName = "";
     }
-    /* else {
-                cout << "ERROR" << endl;
-                exit(404);
-            } */
+    system("cls");
 
-    for (auto&& function : figurki) {
-       /* for (auto&& i : function) { // как эту строчку правильно записать??
-            if (figurki[function]) {
-            }
-        }*/
-	
-        function->setPoint();
-        cout << "P = " << function->getPerimetr() << endl;
-        cout << "S = " << function->getSquare() << endl;
-        cout << "Name " << typeid(function).name() << endl;
+    int function;
+    int func;
+    string sFunction, sFunc;
+
+    for (function = 0; function < figurki.size(); function++) {
+        cout << function+1 << ". " << figurki[function]->getFullName() << endl;
+    }
+    cout << endl;
+
+    for (function = 0; function < figurki.size(); function++) {
+
+        vector<pair<int, int>> temp1;
+        vector<pair<int, int>> temp2;
+        pair<double, pair<int, int>> temp3;
+        pair<double, pair<int, int>> temp4;
+        pair<pair<int, int>, pair<int, int>> vector1;
+        pair<pair<int, int>, pair<int, int>> vector2;
+		cout << endl;
+        cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
+
+        cout << "    Perimeter = " << figurki[function]->getPerimetr() << endl;
+        cout << "    Area = " << figurki[function]->getSquare() << endl;
+        cout << "    Intersects:" << endl;
+        bool fl = false;
+
+        if (figurki[function]->getName() != "Circle.")
+            temp1 = figurki[function]->getVec();
+        else
+            temp3 = figurki[function]->getVec1();
+
+        sFunction = figurki[function]->getName();
+
+        if (function < figurki.size()) {
+            for (func = 0; func < figurki.size(); func++)
+                if (func != function) {
+
+                    if (figurki[func]->getName() != "Circle.")
+                        temp2 = figurki[func]->getVec();
+                    else {
+                        temp4 = figurki[func]->getVec1();
+                        fl = true;
+                    }
+
+                    sFunc = figurki[func]->getName();
+
+                    if ((sFunction == "Trinagle." && sFunc == "Poligone.")
+                        || (sFunction == "Trinagle." && sFunc == "Trinagle.")
+                        || (sFunction == "Poligone." && sFunc == "Trinagle.")
+                        || (sFunction == "Poligone." && sFunc == "Poligone.")) {
+                        //Peresech 2x pryam po koord
+                        for (int i = 0; i < temp1.size(); i++) {
+                            if (i < temp1.size() - 1) {
+                                vector1.first.first = temp1[i].first;
+                                vector1.first.second = temp1[i].second;
+                                vector1.second.first = temp1[i + 1].first;
+                                vector1.second.second = temp1[i + 1].second;
+                            } else {
+                                vector1.first.first = temp1[i].first;
+                                vector1.first.second = temp1[i].second;
+                                vector1.second.first = temp1[0].first;
+                                vector1.second.second = temp1[0].second;
+                            }
+                            for (int j = 0; j < temp2.size(); j++) {
+                                if (j < temp2.size() - 1) {
+                                    vector2.first.first = temp2[j].first;
+                                    vector2.first.second = temp2[j].second;
+                                    vector2.second.first = temp2[j + 1].first;
+                                    vector2.second.second = temp2[j + 1].second;
+                                } else {
+                                    vector2.first.first = temp2[j].first;
+                                    vector2.first.second = temp2[j].second;
+                                    vector2.second.first = temp2[0].first;
+                                    vector2.second.second = temp2[0].second;
+                                }
+                                //проверка на параллельность http://www.cyberforum.ru/cpp-beginners/thread2015192.html
+                                int x1 = vector1.first.first;
+                                int y1 = vector1.first.second;
+                                int x2 = vector1.second.first;
+                                int y2 = vector1.second.second;
+                                int x3 = vector2.first.first;
+                                int y3 = vector2.first.second;
+                                int x4 = vector2.second.first;
+                                int y4 = vector2.second.second;
+                                int denominator = (y4 - y3) * (x1 - x2) - (x4 - x3) * (y1 - y2);
+                                if (denominator == 0) { // 1 1, 2 2; 3 3, 4 4;
+                                    //(1*2 - 2*1) * (4 - 3) - (3*4 - 4 *3) *(1)
+                                    if (((x1 >= x3 && x1 <= x4 || x1 <= x3 && x1 >= x4)
+                                            && (y1 >= y3 && y1 <= y4 || y1 <= y3 && y1 >= y4))
+                                        || ((x2 >= x3 && x2 <= x4 || x2 <= x3 && x2 >= x4)
+                                               && (y2 >= y3 && y2 <= y4 || y2 <= y3 && y2 >= y4))) {
+
+                                        if ((x1 * y2 - x2 * y1) * (x4 - x3) - (x3 * y4 - x4 * y3) * (x2 - x1) == 0
+                                            && (x1 * y2 - x2 * y1) * (y4 - y3) - (x3 * y4 - x4 * y3) * (y2 - y1) == 0) {
+                                            cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
+                                            break;
+                                        }
+                                    }
+
+                                } else {
+                                    int numerator_a = (x4 - x2) * (y4 - y3) - (x4 - x3) * (y4 - y2);
+                                    int numerator_b = (x1 - x2) * (y4 - y2) - (x4 - x2) * (y1 - y2);
+                                    double Ua = 1.0 * numerator_a / denominator;
+                                    double Ub = 1.0 * numerator_b / denominator;
+                                    if (Ua >= 0 && Ua <= 1 && Ub >= 0 && Ub <= 1) {
+
+                                        cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    else if ((sFunction == "Circle." && sFunc == "Poligone.")
+                        || (sFunction == "Circle." && sFunc == "Trinagle.")
+                        || (sFunction == "Poligone." && sFunc == "Circle.")
+                        || (sFunction == "Trinagle." && sFunc == "Circle.")) {
+                        if (!fl)
+                            temp1 = temp2;
+                        {
+                            for (int i = 0; i < temp1.size(); i++) {
+                                if (i < temp1.size() - 1) {
+                                    vector1.first.first = temp1[i].first;
+                                    vector1.first.second = temp1[i].second;
+                                    vector1.second.first = temp1[i + 1].first;
+                                    vector1.second.second = temp1[i + 1].second;
+                                } else {
+                                    vector1.first.first = temp1[i].first;
+                                    vector1.first.second = temp1[i].second;
+                                    vector1.second.first = temp1[0].first;
+                                    vector1.second.second = temp1[0].second;
+                                }
+                                if (fl)
+                                    temp3 = temp4;
+
+                                double r = temp3.first;
+                                int x0 = temp3.second.first;
+                                int y0 = temp3.second.second;
+                                int x1 = vector1.first.first;
+                                int y1 = vector1.first.second;
+                                int x2 = vector1.second.first;
+                                int y2 = vector1.second.second;
+
+                                double H = abs(((x2 - x1) * (y0 - y1) - (y2 - y1) * (x0 - x1)) / sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+                                if (H <= r) {
+                                    cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl ;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                    else if ((sFunction == "Circle." && sFunc == "Circle.")) {
+                        double H = sqrt((temp3.second.first - temp4.second.first) * (temp3.second.first - temp4.second.first)
+                            + (temp3.second.second - temp4.second.second) * (temp3.second.second - temp4.second.second));
+                        if (H <= temp3.first + temp4.first)
+                            cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
+                    }
+                }
+        }
     }
 }
