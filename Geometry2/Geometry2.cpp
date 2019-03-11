@@ -582,8 +582,10 @@ int main()
                     else if ((sFunction == "Circle." && sFunc == "Circle.")) {
                         double H = sqrt((temp3.second.first - temp4.second.first) * (temp3.second.first - temp4.second.first)
                             + (temp3.second.second - temp4.second.second) * (temp3.second.second - temp4.second.second));
-                        if (H <= temp3.first + temp4.first)
+                        if (H <= temp3.first + temp4.first){
                             cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
+				break;
+				}
                     }
                 }
         }
