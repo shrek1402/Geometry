@@ -10,7 +10,7 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
-
+#include <memory>
 using namespace std;
 
 int main()
