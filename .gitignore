@@ -9,6 +9,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+Geometry
 
 # Build results
 [Dd]ebug/

@@ -1,0 +1,3 @@
+language: cpp
+cache: cargo
+script: make -f make
