@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <math.h>
@@ -13,7 +14,7 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "Russian");
 
@@ -103,14 +104,14 @@ int main()
         void setPoint() override
         {
             string temp = "";
-            int i = 0, j=0;
+            int i = 0, j = 0;
 
             for (i = 0, j = 0; i < coordinats.size(); i++) {
 
                 if (coordinats.at(i) != ' ' && j == 0) {
                     temp += coordinats.at(i);
                 } else if (coordinats.at(i) == ' ' && j == 0) {
-                    
+
                     if (temp == "") {
                         cout << "> Координаты: \t ERROR!" << endl;
                         exit(505);
@@ -130,7 +131,7 @@ int main()
                     y = stoi(temp);
                     temp = "";
                     j++;
-                    i+=2;
+                    i += 2;
                 }
 
                 if (j == 2) {
@@ -138,10 +139,10 @@ int main()
                     radius = stod(temp);
                 }
 
-                if (j != 2 && i == coordinats.size()-1){
-                        cout << "> Координаты: \t ERROR!" << endl;
-                        exit(505);
-                    }
+                if (j != 2 && i == coordinats.size() - 1) {
+                    cout << "> Координаты: \t ERROR!" << endl;
+                    exit(505);
+                }
             }
             if (j != 2) {
                 cout << "> Координаты: \t ERROR!" << endl;
@@ -373,8 +374,22 @@ int main()
     vector<unique_ptr<Figure>> figurki;
 
     //Считывает данные
+    
+	/*ifstream myFile;
+    bool file = false;
+    if (argc > 1) {
+        ifstream myFile(argv[1]);
+        if (myFile.is_open()) {
+            file = true;
+        }
+    }
+	*/
+
     while (sStart != "0") {
-        getline(cin, sStart);
+      //  if (!file)
+           getline(cin, sStart);
+        //else
+          //  getline(myFile, sStart);
 
         int i = 0,
             j = 0;
@@ -408,7 +423,7 @@ int main()
         if (sName == "trinagle") {
             figurki.push_back(make_unique<Trinagle>(sCoordinate, sStart));
             figurki[figurki.size() - 1]->setPoint();
-            cout << "> Фигура:\t OK!"  << endl;
+            cout << "> Фигура:\t OK!" << endl;
         }
 
         else if (sName == "circle") {
@@ -431,7 +446,7 @@ int main()
     string sFunction, sFunc;
 
     for (function = 0; function < figurki.size(); function++) {
-        cout << function+1 << ". " << figurki[function]->getFullName() << endl;
+        cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
     }
     cout << endl;
 
@@ -443,7 +458,7 @@ int main()
         pair<double, pair<int, int>> temp4;
         pair<pair<int, int>, pair<int, int>> vector1;
         pair<pair<int, int>, pair<int, int>> vector2;
-		cout << endl;
+        cout << endl;
         cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
 
         cout << "    Perimeter = " << figurki[function]->getPerimetr() << endl;
@@ -571,7 +586,7 @@ int main()
 
                                 double H = abs(((x2 - x1) * (y0 - y1) - (y2 - y1) * (x0 - x1)) / sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
                                 if (H <= r) {
-                                    cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl ;
+                                    cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
                                     break;
                                 }
                             }
