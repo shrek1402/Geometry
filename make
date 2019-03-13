@@ -1,6 +1,5 @@
 CC=g++
 CFLAGS=-c -Werror
-LDFLAGS=
 SOURCES=Geometry2/Geometry2.cpp Geometry2/pch.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
