@@ -19,6 +19,11 @@ std::string Triangle::getFullName()
     return fullName;
 }
 
+std::string Triangle::getName()
+{
+    return std::string("Triangle.");
+}
+
 std::pair<double, std::pair<int, int>> Triangle::getVec1()
 {
     std::pair<double, std::pair<int, int>> TEMP;
@@ -28,11 +33,6 @@ std::pair<double, std::pair<int, int>> Triangle::getVec1()
 std::vector<std::pair<int, int>> Triangle::getVec()
 {
     return C;
-}
-
-std::string getName()
-{
-    return "Triangle.";
 }
 
 double Triangle::getSquare()
@@ -91,7 +91,7 @@ void Triangle::setPoint(std::string coordinats)
     if (C.size() == 3)
         std::cout << "> Координаты: \t OK!" << std::endl;
     else {
-        std::cout << "> Координаты: \t ERROR!" << std::endl;
+        std::cout << "> Координаты: \t ERROR!" << C.size() << std::endl;
         exit(505);
     }
 }

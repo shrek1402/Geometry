@@ -79,8 +79,8 @@ std::pair<double, std::pair<int, int>> Circle::getVec1()
 
 std::vector<std::pair<int, int>> Circle::getVec()
 {
-    std::vector<std::pair<int, int>> C;
-    return C;
+    std::vector<std::pair<int, int>> TMPP;
+    return TMPP;
 }
 
 std::string Circle::getName()

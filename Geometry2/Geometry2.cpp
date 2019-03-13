@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "Figure.h"
 #include "Circle.h"
+#include "Triangle.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -258,8 +259,8 @@ int main(int argc, char* argv[])
                 cout << "> Координаты: \t OK!" << endl;
         }
     };
-    
-    class Trinagle : public Figure {
+  /*  
+    class Triangle : public Figure {
     private:
         string coordinats;
         string fullName;
@@ -267,7 +268,7 @@ int main(int argc, char* argv[])
 
     public:
         vector<pair<int, int>> C;
-        Trinagle(string c, string n)
+        Triangle(string c, string n)
             : coordinats(c)
             , fullName(n)
         {
@@ -296,7 +297,7 @@ int main(int argc, char* argv[])
 
         string getName() override
         {
-            return "Trinagle.";
+            return "Triangle.";
         }
 
         double getSquare() override
@@ -360,7 +361,7 @@ int main(int argc, char* argv[])
             }
         }
     };
-	
+	*/
     vector<unique_ptr<Figure>> figurki;
 
     //Считывает данные
@@ -410,22 +411,16 @@ int main(int argc, char* argv[])
 
             cout << "> Скобочки: \t ОК!" << endl; //TODO
         }
-        if (sName == "trinagle") {
-            figurki.push_back(make_unique<Trinagle>(sCoordinate, sStart));
-            figurki[figurki.size() - 1]->setPoint(sCoordinate);
-            cout << "> Фигура:\t OK!" << endl;
+        if (sName == "triangle") {
+            figurki.push_back(make_unique<Triangle>(sCoordinate, sStart));
         }
 
         else if (sName == "circle") {
             figurki.push_back(make_unique<Circle>(sCoordinate, sStart));
-            figurki[figurki.size() - 1]->setPoint(sCoordinate);
-            cout << "> Фигура:\t OK!" << endl;
         }
 
         else if (sName == "poligone") {
             figurki.push_back(make_unique<Poligone>(sCoordinate, sStart));
-            figurki[figurki.size() - 1]->setPoint(sCoordinate);
-            cout << "> Фигура:\t OK!" << endl;
         }
         sName = "";
     }
@@ -476,9 +471,9 @@ int main(int argc, char* argv[])
 
                     sFunc = figurki[func]->getName();
 
-                    if ((sFunction == "Trinagle." && sFunc == "Poligone.")
-                        || (sFunction == "Trinagle." && sFunc == "Trinagle.")
-                        || (sFunction == "Poligone." && sFunc == "Trinagle.")
+                    if ((sFunction == "Triangle." && sFunc == "Poligone.")
+                        || (sFunction == "Triangle." && sFunc == "Triangle.")
+                        || (sFunction == "Poligone." && sFunc == "Triangle.")
                         || (sFunction == "Poligone." && sFunc == "Poligone.")) {
                         //Peresech 2x pryam po koord
                         for (unsigned int i = 0; i < temp1.size(); i++) {
@@ -545,9 +540,9 @@ int main(int argc, char* argv[])
                     }
 
                     else if ((sFunction == "Circle." && sFunc == "Poligone.")
-                        || (sFunction == "Circle." && sFunc == "Trinagle.")
+                        || (sFunction == "Circle." && sFunc == "Triangle.")
                         || (sFunction == "Poligone." && sFunc == "Circle.")
-                        || (sFunction == "Trinagle." && sFunc == "Circle.")) {
+                        || (sFunction == "Triangle." && sFunc == "Circle.")) {
                         if (!fl)
                             temp1 = temp2;
                         {

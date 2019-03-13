@@ -16,7 +16,7 @@ public:
     Triangle(std::string, std::string);
 
     std::string getFullName() override;
-    std::string getName(void) override;
+    std::string getName() override;
     double getSquare() override;
     double getPerimetr() override;
     void setPoint(std::string) override;
