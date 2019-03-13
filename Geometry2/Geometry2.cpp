@@ -1,7 +1,5 @@
 ﻿#include "pch.h"
 
-#define _USE_MATH_DEFINES
-
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -23,8 +21,8 @@ int main(int argc, char* argv[])
         virtual void setPoint() = 0;
         virtual bool getError() = 0;
 
-        virtual vector<pair<int, int>> getVec() = 0;
-        virtual pair<double, pair<int, int>> getVec1() = 0;
+        virtual vector<pair<int, int> > getVec() = 0;
+        virtual pair<double, pair<int, int> > getVec1() = 0;
         //virtual pair<int, pair<int,double> > getVec() = 0;
     };
     /*Figure::Figure()
@@ -61,18 +59,18 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int>> getVec1() override
+        pair<double, pair<int, int> > getVec1() override
         {
-            pair<double, pair<int, int>> C;
+            pair<double, pair<int, int> > C;
             C.first = radius;
             C.second.first = x;
             C.second.second = y;
             return C;
         }
 
-        vector<pair<int, int>> getVec() override
+        vector<pair<int, int> > getVec() override
         {
-            vector<pair<int, int>> C;
+            vector<pair<int, int> > C;
             return C;
         }
 
@@ -94,7 +92,7 @@ int main(int argc, char* argv[])
         void setPoint() override
         {
             string temp = "";
-            int i = 0, j = 0;
+            unsigned int i = 0, j = 0;
 
             for (i = 0, j = 0; i < coordinats.size(); i++) {
 
@@ -149,7 +147,7 @@ int main(int argc, char* argv[])
         bool error = true;
 
     public:
-        vector<pair<int, int>> C;
+        vector<pair<int, int> > C;
         Poligone(string c, string n)
             : coordinats(c)
             , fullName(n)
@@ -166,13 +164,13 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int>> getVec1() override
+        pair<double, pair<int, int> > getVec1() override
         {
-            pair<double, pair<int, int>> C;
+            pair<double, pair<int, int> > C;
             return C;
         }
 
-        vector<pair<int, int>> getVec() override
+        vector<pair<int, int> > getVec() override
         {
             return C;
         }
@@ -266,7 +264,7 @@ int main(int argc, char* argv[])
         bool error = true;
 
     public:
-        vector<pair<int, int>> C;
+        vector<pair<int, int> > C;
         Trinagle(string c, string n)
             : coordinats(c)
             , fullName(n)
@@ -283,13 +281,13 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int>> getVec1() override
+        pair<double, pair<int, int> > getVec1() override
         {
-            pair<double, pair<int, int>> C;
+            pair<double, pair<int, int> > C;
             return C;
         }
 
-        vector<pair<int, int>> getVec() override
+        vector<pair<int, int> > getVec() override
         {
             return C;
         }
@@ -361,7 +359,7 @@ int main(int argc, char* argv[])
         }
     };
 
-    vector<unique_ptr<Figure>> figurki;
+    vector<unique_ptr<Figure> > figurki;
 
     //Считывает данные
 
@@ -381,8 +379,8 @@ int main(int argc, char* argv[])
         //else
         //  getline(myFile, sStart);
 
-        int i = 0,
-            j = 0;
+        unsigned int i = 0,
+                     j = 0;
         if (sStart != "0") {
             while (sStart.at(i) != '(' && i < sStart.size() - 1) {
                 i++;
@@ -431,8 +429,8 @@ int main(int argc, char* argv[])
     }
     system("cls");
 
-    int function;
-    int func;
+    unsigned int function,
+                 func;
     string sFunction, sFunc;
 
     for (function = 0; function < figurki.size(); function++) {
@@ -442,12 +440,12 @@ int main(int argc, char* argv[])
 
     for (function = 0; function < figurki.size(); function++) {
 
-        vector<pair<int, int>> temp1;
-        vector<pair<int, int>> temp2;
-        pair<double, pair<int, int>> temp3;
-        pair<double, pair<int, int>> temp4;
-        pair<pair<int, int>, pair<int, int>> vector1;
-        pair<pair<int, int>, pair<int, int>> vector2;
+        vector<pair<int, int> > temp1;
+        vector<pair<int, int> > temp2;
+        pair<double, pair<int, int> > temp3;
+        pair<double, pair<int, int> > temp4;
+        pair<pair<int, int>, pair<int, int> > vector1;
+        pair<pair<int, int>, pair<int, int> > vector2;
         cout << endl;
         cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
 
@@ -481,7 +479,7 @@ int main(int argc, char* argv[])
                         || (sFunction == "Poligone." && sFunc == "Trinagle.")
                         || (sFunction == "Poligone." && sFunc == "Poligone.")) {
                         //Peresech 2x pryam po koord
-                        for (int i = 0; i < temp1.size(); i++) {
+                        for (unsigned int i = 0; i < temp1.size(); i++) {
                             if (i < temp1.size() - 1) {
                                 vector1.first.first = temp1[i].first;
                                 vector1.first.second = temp1[i].second;
@@ -493,7 +491,7 @@ int main(int argc, char* argv[])
                                 vector1.second.first = temp1[0].first;
                                 vector1.second.second = temp1[0].second;
                             }
-                            for (int j = 0; j < temp2.size(); j++) {
+                            for (unsigned int j = 0; j < temp2.size(); j++) {
                                 if (j < temp2.size() - 1) {
                                     vector2.first.first = temp2[j].first;
                                     vector2.first.second = temp2[j].second;
@@ -551,7 +549,7 @@ int main(int argc, char* argv[])
                         if (!fl)
                             temp1 = temp2;
                         {
-                            for (int i = 0; i < temp1.size(); i++) {
+                            for (unsigned int i = 0; i < temp1.size(); i++) {
                                 if (i < temp1.size() - 1) {
                                     vector1.first.first = temp1[i].first;
                                     vector1.first.second = temp1[i].second;
