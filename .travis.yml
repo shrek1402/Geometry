@@ -5,20 +5,6 @@ language: cpp       # на практике разницы между специфичным для C++ окружением
                     # и, скажем, python -- никакой. Но пусть будет cpp.
 
 cache: cargo
-compiler: gcc
-
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-
 
 os:
     # будем прогонять CI и на Linux, и на Mac OS X...
@@ -28,6 +14,7 @@ os:
 compiler:
     # ... и с помощью GCC, и Clang
     - gcc
+	- Clang
 
 env:
     # список переменных окружения, влияющих на матрицу сборки:
