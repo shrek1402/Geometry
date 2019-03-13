@@ -35,18 +35,9 @@ matrix:
         - os:  osx
           env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-install:
-    # ñêðèïò íàñòðîéêè ñðåäû è óñòàíîâêè çàâèñèìîñòåé:
-    - source ci/travis/install-$TRAVIS_OS_NAME.sh
-
 script:
     # ñêðèïò ñáîðêè è òåñòèðîâàíèÿ ïðîåêòà:
     - make -f make
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-    - cmake --build .
-    - ctest --output-on-failure
 
 before_install:
     - eval "${MATRIX_EVAL}"
