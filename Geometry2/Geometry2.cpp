@@ -2,16 +2,6 @@
 
 #define _USE_MATH_DEFINES
 
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <math.h>
-#include <string>
-#include <typeinfo>
-#include <utility>
-#include <vector>
-#include <memory>
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -33,8 +23,8 @@ int main(int argc, char* argv[])
         virtual void setPoint() = 0;
         virtual bool getError() = 0;
 
-        virtual vector<pair<int, int> > getVec() = 0;
-        virtual pair<double, pair<int, int> > getVec1() = 0;
+        virtual vector<pair<int, int>> getVec() = 0;
+        virtual pair<double, pair<int, int>> getVec1() = 0;
         //virtual pair<int, pair<int,double> > getVec() = 0;
     };
     /*Figure::Figure()
@@ -71,18 +61,18 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int> > getVec1() override
+        pair<double, pair<int, int>> getVec1() override
         {
-            pair<double, pair<int, int> > C;
+            pair<double, pair<int, int>> C;
             C.first = radius;
             C.second.first = x;
             C.second.second = y;
             return C;
         }
 
-        vector<pair<int, int> > getVec() override
+        vector<pair<int, int>> getVec() override
         {
-            vector<pair<int, int> > C;
+            vector<pair<int, int>> C;
             return C;
         }
 
@@ -159,7 +149,7 @@ int main(int argc, char* argv[])
         bool error = true;
 
     public:
-        vector<pair<int, int> > C;
+        vector<pair<int, int>> C;
         Poligone(string c, string n)
             : coordinats(c)
             , fullName(n)
@@ -176,13 +166,13 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int> > getVec1() override
+        pair<double, pair<int, int>> getVec1() override
         {
-            pair<double, pair<int, int> > C;
+            pair<double, pair<int, int>> C;
             return C;
         }
 
-        vector<pair<int, int> > getVec() override
+        vector<pair<int, int>> getVec() override
         {
             return C;
         }
@@ -276,7 +266,7 @@ int main(int argc, char* argv[])
         bool error = true;
 
     public:
-        vector<pair<int, int> > C;
+        vector<pair<int, int>> C;
         Trinagle(string c, string n)
             : coordinats(c)
             , fullName(n)
@@ -293,13 +283,13 @@ int main(int argc, char* argv[])
             return fullName;
         }
 
-        pair<double, pair<int, int> > getVec1() override
+        pair<double, pair<int, int>> getVec1() override
         {
-            pair<double, pair<int, int> > C;
+            pair<double, pair<int, int>> C;
             return C;
         }
 
-        vector<pair<int, int> > getVec() override
+        vector<pair<int, int>> getVec() override
         {
             return C;
         }
@@ -371,11 +361,11 @@ int main(int argc, char* argv[])
         }
     };
 
-    vector<unique_ptr<Figure> > figurki;
+    vector<unique_ptr<Figure>> figurki;
 
     //Считывает данные
-    
-	/*ifstream myFile;
+
+    /*ifstream myFile;
     bool file = false;
     if (argc > 1) {
         ifstream myFile(argv[1]);
@@ -386,10 +376,10 @@ int main(int argc, char* argv[])
 	*/
 
     while (sStart != "0") {
-      //  if (!file)
-           getline(cin, sStart);
+        //  if (!file)
+        getline(cin, sStart);
         //else
-          //  getline(myFile, sStart);
+        //  getline(myFile, sStart);
 
         int i = 0,
             j = 0;
@@ -452,12 +442,12 @@ int main(int argc, char* argv[])
 
     for (function = 0; function < figurki.size(); function++) {
 
-        vector<pair<int, int> > temp1;
-        vector<pair<int, int> > temp2;
-        pair<double, pair<int, int> > temp3;
-        pair<double, pair<int, int> > temp4;
-        pair<pair<int, int>, pair<int, int> > vector1;
-        pair<pair<int, int>, pair<int, int> > vector2;
+        vector<pair<int, int>> temp1;
+        vector<pair<int, int>> temp2;
+        pair<double, pair<int, int>> temp3;
+        pair<double, pair<int, int>> temp4;
+        pair<pair<int, int>, pair<int, int>> vector1;
+        pair<pair<int, int>, pair<int, int>> vector2;
         cout << endl;
         cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
 
@@ -597,10 +587,10 @@ int main(int argc, char* argv[])
                     else if ((sFunction == "Circle." && sFunc == "Circle.")) {
                         double H = sqrt((temp3.second.first - temp4.second.first) * (temp3.second.first - temp4.second.first)
                             + (temp3.second.second - temp4.second.second) * (temp3.second.second - temp4.second.second));
-                        if (H <= temp3.first + temp4.first){
+                        if (H <= temp3.first + temp4.first) {
                             cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
-				break;
-				}
+                            break;
+                        }
                     }
                 }
         }
