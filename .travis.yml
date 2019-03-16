@@ -24,6 +24,17 @@ env:
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 matrix:
+    include:
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     exclude:
         # âðó÷íóþ èñêëþ÷èì íåíóæíûå ýëåìåíòû èç ìàòðèöû ñáîðêè:
         - os:       osx
