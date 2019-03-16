@@ -27,11 +27,9 @@ matrix:
     include:
     - os: osx
       osx_image: xcode10.1
-    - os: osx
       osx_image: xcode8
       env:
         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-    - os: osx
       osx_image: xcode8
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
@@ -46,8 +44,6 @@ matrix:
             - clang-5.0
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-    # works on Precise and Trusty
-    - os: linux
       addons:
         apt:
           sources:
