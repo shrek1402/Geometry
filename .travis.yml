@@ -6,6 +6,7 @@ language: cpp       # íà ïðàêòèêå ðàçíèöû ìåæäó ñïåöè
 
 cache: cargo
 
+
 os:
     # áóäåì ïðîãîíÿòü CI è íà Linux, è íà Mac OS X...
     - linux
