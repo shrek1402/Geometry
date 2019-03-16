@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 
     string sStart = "", sName, sCoordinate;
 
-    vector<std::unique_ptr<Figure> > figurki;
+    vector<unique_ptr<Figure> > figurki;
 
     //Считывает данные
 

@@ -5,7 +5,7 @@
 class Triangle : public Figure {
 
 private:
-    std::vector<std::pair<int, int>> C;
+    std::vector<std::pair<int, int> > C;
     int x, y;
     double radius;
     std::string coordinats;
@@ -22,8 +22,8 @@ public:
     void setPoint(std::string) override;
     bool getError() override;
 
-    std::vector<std::pair<int, int>> getVec() override;
-    std::pair<double, std::pair<int, int>> getVec1() override;
+    std::vector<std::pair<int, int> > getVec() override;
+    std::pair<double, std::pair<int, int> > getVec1() override;
 
 
     ~Triangle() = default;

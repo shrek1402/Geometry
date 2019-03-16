@@ -12,7 +12,7 @@ public:
     virtual void        setPoint(std::string) = 0;
     virtual bool        getError() = 0;
 
-    virtual std::vector<std::pair<int, int>> getVec() = 0;
-    virtual std::pair<double, std::pair<int, int>> getVec1() = 0;
+    virtual std::vector<std::pair<int, int> > getVec() = 0;
+    virtual std::pair<double, std::pair<int, int> > getVec1() = 0;
     ~Figure();
 };

@@ -8,7 +8,7 @@ private:
     std::string coordinats;
     std::string fullName;
     bool error = true;
-    std::vector<std::pair<int, int>> C;
+    std::vector<std::pair<int, int> > C;
 
 public:
     Poligone(std::string, std::string);
@@ -20,8 +20,8 @@ public:
     void setPoint(std::string) override;
     bool getError() override;
 
-    std::vector<std::pair<int, int>> getVec() override;
-    std::pair<double, std::pair<int, int>> getVec1() override;
+    std::vector<std::pair<int, int> > getVec() override;
+    std::pair<double, std::pair<int, int> > getVec1() override;
 
     ~Poligone();
 };
