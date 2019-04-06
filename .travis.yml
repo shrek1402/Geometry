@@ -16,7 +16,6 @@ compiler:
     # ... è ñ ïîìîùüþ GCC, è Clang
     - gcc
     - Clang
-
 env:
     # ñïèñîê ïåðåìåííûõ îêðóæåíèÿ, âëèÿþùèõ íà ìàòðèöó ñáîðêè:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
