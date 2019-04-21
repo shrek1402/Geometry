@@ -1,23 +1,18 @@
-dist:     trusty    # èñïîëüçóåì Ubuntu 14.04 Trusty Tahr (à íå 12.02 Precise Pangolin)
-sudo:     required  # èñïîëüçóåì Virtual Machine (à íå Docker container)
+dist:     xenial
+sudo:     required
 
-language: cpp       # íà ïðàêòèêå ðàçíèöû ìåæäó ñïåöèôè÷íûì äëÿ C++ îêðóæåíèåì
-                    # è, ñêàæåì, python -- íèêàêîé. Íî ïóñòü áóäåò cpp.
-
+language: cpp
 cache: cargo
 
-
 os:
-    # áóäåì ïðîãîíÿòü CI è íà Linux, è íà Mac OS X...
     - linux
     - osx
 
 compiler:
-    # ... è ñ ïîìîùüþ GCC, è Clang
     - gcc
     - Clang
+
 env:
-    # ñïèñîê ïåðåìåííûõ îêðóæåíèÿ, âëèÿþùèõ íà ìàòðèöó ñáîðêè:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
@@ -25,19 +20,33 @@ env:
 
 matrix:
     include:
-        - os: linux
-          addons:
-            apt:
-              sources:
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
+    - os: osx
+      osx_image: xcode10.1
+      osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-    
-    
+        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-5.0
+          packages:
+            - clang-5.0
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     exclude:
-        # âðó÷íóþ èñêëþ÷èì íåíóæíûå ýëåìåíòû èç ìàòðèöû ñáîðêè:
         - os:       osx
           compiler: gcc
 
@@ -48,8 +57,8 @@ matrix:
           env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 script:
-    # ñêðèïò ñáîðêè è òåñòèðîâàíèÿ ïðîåêòà:
     - make -f make
+    - ./ABC
 
 before_install:
     - eval "${MATRIX_EVAL}"

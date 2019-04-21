@@ -14,6 +14,7 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
+#include <cmath>
 
 #include "Figure.h"
 #include "Circle.h"

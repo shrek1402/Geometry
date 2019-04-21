@@ -1,6 +1,3 @@
-﻿#include "Circle.h"
-#include "Figure.h"
-#include "Poligone.h"
 #include "pch.h"
 using namespace std;
 
