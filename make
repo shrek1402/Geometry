@@ -4,7 +4,8 @@ SOURCES=Geometry2/Figure.cpp Geometry2/Triangle.cpp Geometry2/Poligone.cpp Geome
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
 
-all: $(SOURCES) $(EXECUTABLE)
+all:
+	g++ -std=c++14 Geometry2/Figure.cpp Geometry2/Triangle.cpp Geometry2/Poligone.cpp Geometry2/Circle.cpp Geometry2/Input.cpp Geometry2/Geometry2.cpp -o ABC
 	
 $(EXECUTABLE): $(OBJECTS) 
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
