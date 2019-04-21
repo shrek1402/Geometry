@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-std=c++14
-SOURCES=Geometry2/Geometry2.cpp
+SOURCES=Geometry2/pch.cpp Geometry2/Figure.cpp Geometry2/Triangle.cpp Geometry2/Poligone.cpp Geometry2/Circle.cpp Geometry2/Input.cpp Geometry2/Geometry2.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
 
