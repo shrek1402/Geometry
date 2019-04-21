@@ -58,7 +58,7 @@ matrix:
 
 script:
     - make -f make
-    - ./ABC
+    - ./ABC data.txt
 
 before_install:
     - eval "${MATRIX_EVAL}"
