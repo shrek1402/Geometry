@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 
         unsigned int i = 0, j = 0;
         if (sStart != "0") {
-            while (sStart.at(i) != '(' && i < sStart.size() - 1) {
+            while (sStart[i] != '(' && i < sStart.size() - 1) {
                 i++;
             }
 
@@ -46,11 +46,11 @@ int main(int argc, char* argv[])
 
             j = i - 1;
 
-            while (sStart.at(j) != ')' && j <= sStart.size() - 1) {
+            while (sStart[j] != ')' && j <= sStart.size() - 1) {
                 j++;
             }
 
-            if (sStart.at(sStart.size() - 1) != ')') {
+            if (sStart[sStart.size() - 1] != ')') {
                 cout << "> Скобочки: \t ERROR!" << endl;
                 exit(123);
             }
