@@ -20,14 +20,6 @@ env:
 
 matrix:
     include:
-    - os: osx
-      osx_image: xcode10.1
-      osx_image: xcode8
-      env:
-        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-      osx_image: xcode8
-      env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
     - os: linux
       addons:
         apt:
@@ -46,15 +38,6 @@ matrix:
             - g++-7
       env:
          - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-    exclude:
-        - os:       osx
-          compiler: gcc
-
-        - os:  osx
-          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-
-        - os:  osx
-          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 script:
     - make -f make
