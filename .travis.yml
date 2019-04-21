@@ -56,7 +56,7 @@ matrix:
         - os:  osx
           env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-script;
+script:
     - make -f make
     - ./ABC
 
