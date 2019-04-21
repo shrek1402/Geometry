@@ -6,7 +6,6 @@ language: cpp       # íà ïðàêòèêå ðàçíèöû ìåæäó ñïåöè
 
 cache: cargo
 
-
 os:
     # áóäåì ïðîãîíÿòü CI è íà Linux, è íà Mac OS X...
     - linux
@@ -16,6 +15,7 @@ compiler:
     # ... è ñ ïîìîùüþ GCC, è Clang
     - gcc
     - Clang
+
 env:
     # ñïèñîê ïåðåìåííûõ îêðóæåíèÿ, âëèÿþùèõ íà ìàòðèöó ñáîðêè:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
@@ -25,17 +25,33 @@ env:
 
 matrix:
     include:
-        - os: linux
-          addons:
-            apt:
-              sources:
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
+    - os: osx
+      osx_image: xcode10.1
+      osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-    
-    
+        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-5.0
+          packages:
+            - clang-5.0
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     exclude:
         # âðó÷íóþ èñêëþ÷èì íåíóæíûå ýëåìåíòû èç ìàòðèöû ñáîðêè:
         - os:       osx
