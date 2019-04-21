@@ -1,23 +1,18 @@
-dist:     xenial    # èñïîëüçóåì Ubuntu 14.04 Trusty Tahr (à íå 12.02 Precise Pangolin)
-sudo:     required  # èñïîëüçóåì Virtual Machine (à íå Docker container)
+dist:     xenial
+sudo:     required
 
-language: cpp       # íà ïðàêòèêå ðàçíèöû ìåæäó ñïåöèôè÷íûì äëÿ C++ îêðóæåíèåì
-                    # è, ñêàæåì, python -- íèêàêîé. Íî ïóñòü áóäåò cpp.
-
+language: cpp
 cache: cargo
 
 os:
-    # áóäåì ïðîãîíÿòü CI è íà Linux, è íà Mac OS X...
     - linux
     - osx
 
 compiler:
-    # ... è ñ ïîìîùüþ GCC, è Clang
     - gcc
     - Clang
 
 env:
-    # ñïèñîê ïåðåìåííûõ îêðóæåíèÿ, âëèÿþùèõ íà ìàòðèöó ñáîðêè:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
@@ -33,7 +28,6 @@ matrix:
       osx_image: xcode8
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
-    # works on Precise and Trusty
     - os: linux
       addons:
         apt:
@@ -53,7 +47,6 @@ matrix:
       env:
          - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     exclude:
-        # âðó÷íóþ èñêëþ÷èì íåíóæíûå ýëåìåíòû èç ìàòðèöû ñáîðêè:
         - os:       osx
           compiler: gcc
 
@@ -63,9 +56,9 @@ matrix:
         - os:  osx
           env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-script:
-    # ñêðèïò ñáîðêè è òåñòèðîâàíèÿ ïðîåêòà:
+script;
     - make -f make
+    -./ABC
 
 before_install:
     - eval "${MATRIX_EVAL}"
