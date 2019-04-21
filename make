@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c
+CFLAGS=-c -std=c++17
 SOURCES=Geometry2/Geometry2.cpp Geometry2/pch.cpp Geometry2/Circle.cpp Geometry2/Figure.cpp Geometry2/Poligone.cpp Geometry2/Triangle.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
