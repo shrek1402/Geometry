@@ -1,4 +1,4 @@
-dist:     trusty    # èñïîëüçóåì Ubuntu 14.04 Trusty Tahr (à íå 12.02 Precise Pangolin)
+dist:     xenial    # èñïîëüçóåì Ubuntu 14.04 Trusty Tahr (à íå 12.02 Precise Pangolin)
 sudo:     required  # èñïîëüçóåì Virtual Machine (à íå Docker container)
 
 language: cpp       # íà ïðàêòèêå ðàçíèöû ìåæäó ñïåöèôè÷íûì äëÿ C++ îêðóæåíèåì
