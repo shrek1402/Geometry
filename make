@@ -8,11 +8,14 @@ EXECUTABLE=Geometry
 
 .PHONY: clean
 
+<<<<<<< HEAD
 folder1:
 	mkdir -p build
 folder2:
 	mkdir -p bin
 
+=======
+>>>>>>> 017ab06dbe9d6cad2c13774c9a627f66710dc659
 all:
 	folder1 folder2 bin/ABC.exe
 	
@@ -34,4 +37,4 @@ build/Poligone.o: src/Poligone.cpp src/Poligone.h
 build/Triangle.o: src/Triangle.cpp src/Triangle.h
 	$(OBJ)
 clean:
-	rm -rf *.o Geometry
+	rm -rf *.o ABC
