@@ -4,8 +4,10 @@ SOURCES=Geometry2/Figure.cpp Geometry2/Triangle.cpp Geometry2/Poligone.cpp Geome
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
 
+.PHONY: clean
+
 all:
 	$(GXX) $(CFLAGS) $(SOURCES) -o ABC
 	
 clean:
-	rm -rf *.o Geometry
+	rm -rf *.o ABC
