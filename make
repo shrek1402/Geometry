@@ -16,7 +16,7 @@ folder2:
 all:
 	folder1 folder2 bin/ABC.exe
 	
-bin/ABC.exe: build/Figure.o build/Triangle.o build/Poligone.o build/Circle.o build/Geometry2.o
+ABC.exe: build/Figure.o build/Triangle.o build/Poligone.o build/Circle.o build/Geometry2.o
 	g++ $(CFLAGS) $^ -o $@
 
 build/Figure.o: src/Figure.cpp src/Figure.h
