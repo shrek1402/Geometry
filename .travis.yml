@@ -41,7 +41,7 @@ matrix:
 script:
     #- git ls-files src/ | xargs clang-format -i && git diff --exit-code
     - make -f make
-    - ./ABC.exe data.txt
+    - ./ABC data.txt
 
 before_install:
     - eval "${MATRIX_EVAL}"
