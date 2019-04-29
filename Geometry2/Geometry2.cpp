@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 
     string sStart = "", sName, sCoordinate;
 
-    vector<unique_ptr<Figure> > figurki;
+    vector<unique_ptr<Figure>> figurki;
 
     //Считывает данные
 
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     ifstream myFile(argv[1]);
     while (sStart != "0") {
         //  if (!file)
-        //getline(cin, sStart);
+        // getline(cin, sStart);
         // else
 
         getline(myFile, sStart);
@@ -78,19 +78,21 @@ int main(int argc, char* argv[])
     string sFunction, sFunc;
 
     for (function = 0; function < figurki.size(); function++) {
-        cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
+        cout << function + 1 << ". " << figurki[function]->getFullName()
+             << endl;
     }
     cout << endl;
 
     for (function = 0; function < figurki.size(); function++) {
-        vector<pair<int, int> > temp1;
-        vector<pair<int, int> > temp2;
-        pair<double, pair<int, int> > temp3;
-        pair<double, pair<int, int> > temp4;
-        pair<pair<int, int>, pair<int, int> > vector1;
-        pair<pair<int, int>, pair<int, int> > vector2;
+        vector<pair<int, int>> temp1;
+        vector<pair<int, int>> temp2;
+        pair<double, pair<int, int>> temp3;
+        pair<double, pair<int, int>> temp4;
+        pair<pair<int, int>, pair<int, int>> vector1;
+        pair<pair<int, int>, pair<int, int>> vector2;
         cout << endl;
-        cout << function + 1 << ". " << figurki[function]->getFullName() << endl;
+        cout << function + 1 << ". " << figurki[function]->getFullName()
+             << endl;
 
         cout << "    Perimeter = " << figurki[function]->getPerimetr() << endl;
         cout << "    Area = " << figurki[function]->getSquare() << endl;
@@ -116,7 +118,10 @@ int main(int argc, char* argv[])
 
                     sFunc = figurki[func]->getName();
 
-                    if ((sFunction == "Triangle." && sFunc == "Poligone.") || (sFunction == "Triangle." && sFunc == "Triangle.") || (sFunction == "Poligone." && sFunc == "Triangle.") || (sFunction == "Poligone." && sFunc == "Poligone.")) {
+                    if ((sFunction == "Triangle." && sFunc == "Poligone.")
+                        || (sFunction == "Triangle." && sFunc == "Triangle.")
+                        || (sFunction == "Poligone." && sFunc == "Triangle.")
+                        || (sFunction == "Poligone." && sFunc == "Poligone.")) {
                         for (size_t i = 0; i < temp1.size(); i++) {
                             if (i < temp1.size() - 1) {
                                 vector1.first.first = temp1[i].first;
@@ -151,25 +156,48 @@ int main(int argc, char* argv[])
                                 int y3 = vector2.first.second;
                                 int x4 = vector2.second.first;
                                 int y4 = vector2.second.second;
-                                int denominator = (y4 - y3) * (x1 - x2) - (x4 - x3) * (y1 - y2);
+                                int denominator = (y4 - y3) * (x1 - x2)
+                                        - (x4 - x3) * (y1 - y2);
 
                                 if (denominator == 0) {
-                                    if (((x1 >= x3 && x1 <= x4 || x1 <= x3 && x1 >= x4) && (y1 >= y3 && y1 <= y4 || y1 <= y3 && y1 >= y4)) || ((x2 >= x3 && x2 <= x4 || x2 <= x3 && x2 >= x4) && (y2 >= y3 && y2 <= y4 || y2 <= y3 && y2 >= y4))) {
-                                        if ((x1 * y2 - x2 * y1) * (x4 - x3) - (x3 * y4 - x4 * y3) * (x2 - x1) == 0 && (x1 * y2 - x2 * y1) * (y4 - y3) - (x3 * y4 - x4 * y3) * (y2 - y1) == 0) {
-                                            cout << "      " << func + 1 << ". " << figurki[func]->getName() << endl;
+                                    if (((x1 >= x3 && x1 <= x4
+                                          || x1 <= x3 && x1 >= x4)
+                                         && (y1 >= y3 && y1 <= y4
+                                             || y1 <= y3 && y1 >= y4))
+                                        || ((x2 >= x3 && x2 <= x4
+                                             || x2 <= x3 && x2 >= x4)
+                                            && (y2 >= y3 && y2 <= y4
+                                                || y2 <= y3 && y2 >= y4))) {
+                                        if ((x1 * y2 - x2 * y1) * (x4 - x3)
+                                                            - (x3 * y4
+                                                               - x4 * y3)
+                                                                    * (x2 - x1)
+                                                    == 0
+                                            && (x1 * y2 - x2 * y1) * (y4 - y3)
+                                                            - (x3 * y4
+                                                               - x4 * y3)
+                                                                    * (y2 - y1)
+                                                    == 0) {
+                                            cout << "      " << func + 1 << ". "
+                                                 << figurki[func]->getName()
+                                                 << endl;
                                             i = temp1.size() - 1;
                                             break;
                                         }
                                     }
 
                                 } else {
-                                    int numerator_a = (x4 - x2) * (y4 - y3) - (x4 - x3) * (y4 - y2);
-                                    int numerator_b = (x1 - x2) * (y4 - y2) - (x4 - x2) * (y1 - y2);
+                                    int numerator_a = (x4 - x2) * (y4 - y3)
+                                            - (x4 - x3) * (y4 - y2);
+                                    int numerator_b = (x1 - x2) * (y4 - y2)
+                                            - (x4 - x2) * (y1 - y2);
                                     double Ua = 1.0 * numerator_a / denominator;
                                     double Ub = 1.0 * numerator_b / denominator;
-                                    if (Ua >= 0 && Ua <= 1 && Ub >= 0 && Ub <= 1) {
+                                    if (Ua >= 0 && Ua <= 1 && Ub >= 0
+                                        && Ub <= 1) {
                                         cout << "      " << func + 1 << ". "
-                                             << figurki[func]->getName() << endl;
+                                             << figurki[func]->getName()
+                                             << endl;
                                         i = temp1.size() - 1;
                                         break;
                                     }
@@ -178,7 +206,12 @@ int main(int argc, char* argv[])
                         }
                     }
 
-                    else if ((sFunction == "Circle." && sFunc == "Poligone.") || (sFunction == "Circle." && sFunc == "Triangle.") || (sFunction == "Poligone." && sFunc == "Circle.") || (sFunction == "Triangle." && sFunc == "Circle.")) {
+                    else if (
+                            (sFunction == "Circle." && sFunc == "Poligone.")
+                            || (sFunction == "Circle." && sFunc == "Triangle.")
+                            || (sFunction == "Poligone." && sFunc == "Circle.")
+                            || (sFunction == "Triangle."
+                                && sFunc == "Circle.")) {
                         if (!fl)
                             temp1 = temp2;
                         {
@@ -205,7 +238,11 @@ int main(int argc, char* argv[])
                                 int x2 = vector1.second.first;
                                 int y2 = vector1.second.second;
 
-                                double H = abs(((x2 - x1) * (y0 - y1) - (y2 - y1) * (x0 - x1)) / sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+                                double H
+                                        = abs(((x2 - x1) * (y0 - y1)
+                                               - (y2 - y1) * (x0 - x1))
+                                              / sqrt((x2 - x1) * (x2 - x1)
+                                                     + (y2 - y1) * (y2 - y1)));
                                 if (H <= r) {
                                     cout << "      " << func + 1 << ". "
                                          << figurki[func]->getName() << endl;
@@ -217,10 +254,16 @@ int main(int argc, char* argv[])
                     }
 
                     else if ((sFunction == "Circle." && sFunc == "Circle.")) {
-                        double H = sqrt((temp3.second.first - temp4.second.first) * (temp3.second.first - temp4.second.first) + (temp3.second.second - temp4.second.second) * (temp3.second.second - temp4.second.second));
+                        double H = sqrt(
+                                (temp3.second.first - temp4.second.first)
+                                        * (temp3.second.first
+                                           - temp4.second.first)
+                                + (temp3.second.second - temp4.second.second)
+                                        * (temp3.second.second
+                                           - temp4.second.second));
                         if (H <= temp3.first + temp4.first) {
-                            cout << "      " << func + 1 << ". " << figurki[func]->getName()
-                                 << endl;
+                            cout << "      " << func + 1 << ". "
+                                 << figurki[func]->getName() << endl;
                             break;
                         }
                     }

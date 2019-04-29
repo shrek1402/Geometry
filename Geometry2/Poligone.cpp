@@ -1,70 +1,75 @@
-#include "pch.h"
 #include "Poligone.h"
+#include "pch.h"
 
-
-Poligone::Poligone(std::string s, std::string n)
-    : coordinats(s)
-    , fullName(n)
+Poligone::Poligone(std::string s, std::string n) : coordinats(s), fullName(n)
 {
     setPoint(coordinats);
 }
 
-
-bool Poligone::getError() 
+bool Poligone::getError()
 {
     return error;
 }
 
-std::string Poligone::getFullName() 
+std::string Poligone::getFullName()
 {
     return fullName;
 }
 
-std::pair<double, std::pair<int, int>> Poligone::getVec1() 
+std::pair<double, std::pair<int, int>> Poligone::getVec1()
 {
     std::pair<double, std::pair<int, int>> C;
     return C;
 }
 
-std::vector<std::pair<int, int>> Poligone::getVec() 
+std::vector<std::pair<int, int>> Poligone::getVec()
 {
     return C;
 }
 
-std::string Poligone::getName() 
+std::string Poligone::getName()
 {
     return "Poligone.";
 }
 
-double Poligone::getSquare() 
+double Poligone::getSquare()
 {
     double result = 0;
     for (size_t i = 0; i < C.size(); i++) {
         if (i < C.size() - 1) {
-            result += C.at(i).first * C.at(i + 1).second - C.at(i + 1).first * C.at(i).second; //x1y2 - x2y1  01 10 12 21 23 32
+            result += C.at(i).first * C.at(i + 1).second
+                    - C.at(i + 1).first
+                            * C.at(i).second; // x1y2 - x2y1  01 10 12 21 23 32
         } else {
-            result += C.at(i).first * C.at(0).second - C.at(0).first * C.at(i).second;
+            result += C.at(i).first * C.at(0).second
+                    - C.at(0).first * C.at(i).second;
         }
     }
     return abs(result / 2.0);
 }
 
-double Poligone::getPerimetr() 
+double Poligone::getPerimetr()
 {
     double result = 0;
     for (size_t i = 0; i < C.size(); i++) {
         if (i < C.size() - 1) {
-            result += sqrt((C.at(i + 1).first - C.at(i).first) * (C.at(i + 1).first - C.at(i).first)
-                + (C.at(i + 1).second - C.at(i).second) * (C.at(i + 1).second - C.at(i).second));
+            result
+                    += sqrt((C.at(i + 1).first - C.at(i).first)
+                                    * (C.at(i + 1).first - C.at(i).first)
+                            + (C.at(i + 1).second - C.at(i).second)
+                                    * (C.at(i + 1).second - C.at(i).second));
         } else if (i = C.size() - 1) {
-            result += sqrt((C.at(0).first - C.at(i).first) * (C.at(0).first - C.at(i).first)
-                + (C.at(0).second - C.at(i).second) * (C.at(0).second - C.at(i).second));
+            result
+                    += sqrt((C.at(0).first - C.at(i).first)
+                                    * (C.at(0).first - C.at(i).first)
+                            + (C.at(0).second - C.at(i).second)
+                                    * (C.at(0).second - C.at(i).second));
         }
     }
     return result;
 }
 
-void Poligone::setPoint(std::string coordinats) 
+void Poligone::setPoint(std::string coordinats)
 {
     std::string tmp1 = "", tmp2 = "";
     bool flag = true;
@@ -72,7 +77,9 @@ void Poligone::setPoint(std::string coordinats)
     for (size_t i = 0, j = 0; i < coordinats.size(); i++) {
         std::pair<int, int> tmpPair;
 
-        if (coordinats.at(i) == ' ' && coordinats.at(i - 1) != ',') { // poligone(1 2, 3 4, 5 6, 7 8, 9 0)
+        if (coordinats.at(i) == ' '
+            && coordinats.at(i - 1)
+                    != ',') { // poligone(1 2, 3 4, 5 6, 7 8, 9 0)
             flag = false;
 
         } else if (coordinats.at(i) == ',') {

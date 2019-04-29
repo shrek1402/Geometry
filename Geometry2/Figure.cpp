@@ -1,6 +1,5 @@
 #include "pch.h"
 
-
 Figure::Figure()
 {
 }

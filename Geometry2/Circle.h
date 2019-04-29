@@ -1,9 +1,8 @@
 #pragma once
-#include "pch.h"
 #include "Figure.h"
+#include "pch.h"
 
 class Circle : public Figure {
-
 private:
     int x, y;
     double radius;
@@ -21,8 +20,8 @@ public:
     void setPoint(std::string) override;
     bool getError() override;
 
-    std::vector<std::pair<int, int> > getVec() override;
-    std::pair<double, std::pair<int, int> > getVec1() override;
+    std::vector<std::pair<int, int>> getVec() override;
+    std::pair<double, std::pair<int, int>> getVec1() override;
 
     ~Circle() = default;
 };

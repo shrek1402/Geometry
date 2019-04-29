@@ -14,10 +14,9 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
-#include <cmath>
 
-#include "Figure.h"
 #include "Circle.h"
+#include "Figure.h"
 #include "Input.h"
 #include "Poligone.h"
 #include "Triangle.h"

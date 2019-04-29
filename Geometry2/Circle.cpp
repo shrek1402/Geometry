@@ -1,9 +1,7 @@
-#include "pch.h"
 #include "Circle.h"
+#include "pch.h"
 
-Circle::Circle(std::string s, std::string n)
-    : coordinats(s)
-    , fullName(n)
+Circle::Circle(std::string s, std::string n) : coordinats(s), fullName(n)
 {
     setPoint(coordinats);
 }
@@ -14,11 +12,9 @@ void Circle::setPoint(std::string coordinats)
     unsigned int i = 0, j = 0;
 
     for (i = 0, j = 0; i < coordinats.size(); i++) {
-
         if (coordinats.at(i) != ' ' && j == 0) {
             temp += coordinats.at(i);
         } else if (coordinats.at(i) == ' ' && j == 0) {
-
             if (temp == "") {
                 std::cout << "> Координаты: \t ERROR!" << std::endl;
                 exit(505);
@@ -98,8 +94,6 @@ double Circle::getPerimetr()
     return 2 * M_PI * radius;
 }
 
-
-
-//Circle::~Circle()
+// Circle::~Circle()
 //{
 //}
